@@ -1833,6 +1833,12 @@
   #contactForm .phone-row{ grid-template-columns: 1fr; }
 }
 
+
+
+#contactStep.contact-modal{ display: flex !important; flex-direction: column; }
+#contactForm{ flex: 1 1 auto; min-height: 0; overflow: auto; }
+#contactForm .button-row{ position: sticky; bottom: 0; padding-top: 10px; background: linear-gradient(180deg, rgba(29,27,32,0), rgba(29,27,32,0.85) 40%, rgba(29,27,32,0.98)); }
+
 </style>
 </head>
 <body>
@@ -2522,7 +2528,7 @@
                     <label style="color:#fff; font-weight:500;">Any other request (optional)</label>
             <textarea id="contactRequest" style="width:100%;padding:0.75rem 1rem;margin-top:0.5rem;border-radius:0.75rem;border:none;background:#2c2c2c;color:#fff;font-size:1.1rem;min-height:80px;resize:vertical;" placeholder="Let us know anything else..."></textarea>
                 </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;">
+                <div class="button-row" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;">
                     <button type="button" id="backToFlightBtn" style="background:#2c2c2c;color:#fff;padding:0.75rem 2rem;border-radius:0.75rem;border:none;font-weight:600;font-size:1rem;cursor:pointer;">Back</button>
             <button type="submit" style="background:linear-gradient(to right,#fbbf24,#eab308);color:#232226;padding:0.75rem 2rem;border-radius:0.75rem;border:none;font-weight:700;font-size:1rem;cursor:pointer;" ">Submit</button>
                 </div>
