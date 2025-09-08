@@ -1755,42 +1755,85 @@
                  justify-content: center;
              }
          }
-         #contactModalOverlay {
-  display: none;
+         
+#contactModalOverlay{
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.8);
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: clamp(12px,3vw,24px);
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(3px);
   z-index: 2001;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  backdrop-filter: blur(5px);
 }
-#contactModalOverlay.show { display: flex; }
-#contactStep.contact-modal {
-  display: block !important;
+#contactModalOverlay.show{ display: grid; }
+
+#contactModalOverlay.show{ display: grid; }
+
+#contactStep.contact-modal{
   position: relative;
   margin: 0;
-  max-width: 500px;
-  width: 100%;
+  width: min(720px,96vw);
+  max-height: 90dvh;
+  overflow: auto;
+  background: #1d1b20;
+  border: 1px solid #4b5563;
+  border-radius: 16px;
+  padding: 20px;
+  color: #eee;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.35);
   z-index: 2002;
-  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+  box-sizing: border-box;
 }
-#closeContactModalBtn {
+
+
+#closeContactModalBtn{
   position: absolute;
-  top: 1rem;
-  right: 1.5rem;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2rem;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: 0;
+  color: #ddd;
+  font-size: 24px;
   cursor: pointer;
   line-height: 1;
-  transition: transform 0.2s;
+  transition: transform .2s;
   z-index: 2003;
 }
+#closeContactModalBtn:hover{ color:#ffae00; transform: scale(1.05); }
+
 #closeContactModalBtn:hover { color: #ffae00; transform: scale(1.1); }
-    </style>
+    
+
+/* Contact form inputs */
+#contactForm input,
+#contactForm select,
+#contactForm textarea{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #2a2a2a;
+  background: #1a1a1a;
+  color: #eee;
+  box-sizing: border-box;
+}
+#contactForm textarea{ min-height: 120px; resize: vertical; }
+#contactForm input:focus, #contactForm select:focus, #contactForm textarea:focus{
+  outline: none;
+  border-color: #caa33a;
+  box-shadow: 0 0 0 3px rgba(202,163,58,.25);
+}
+/* phone row responsive */
+#contactForm .phone-row{
+  display: grid !important;
+  grid-template-columns: 1.1fr 2fr;
+  gap: 12px;
+}
+@media (max-width: 480px){
+  #contactForm .phone-row{ grid-template-columns: 1fr; }
+}
+
+</style>
 </head>
 <body>
     <div class="luxury-travel-container">
@@ -2344,7 +2387,7 @@
     </div>
 
     <!-- CONTACT FORM MODAL OVERLAY WAHEGURU JI -->
-    <div id="contactModalOverlay" style="display:none;">
+    <div id="contactModalOverlay">
       <div id="contactStep" class="contact-modal">
         <div style="text-align:center; margin-bottom:1.5rem;">
           <h1 style="color:#f1f1f1; font-size:2rem; font-weight:800; letter-spacing:1px; margin-bottom:0.5rem;">You Are One Step Away From Your Dream Flight</h1>
@@ -2358,7 +2401,7 @@
                 </div>
                 <div style="margin-bottom:1.5rem;">
                     <label style="color:#fff; font-weight:500;">Phone Number</label>
-                    <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem;">
+                    <div class="phone-row" style="display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem;">
               <select id="countryCode" style="padding:0.75rem 0.5rem;border-radius:0.75rem 0 0 0.75rem;border:none;background:#2c2c2c;color:#fff;font-size:1.1rem;min-width:90px;">
                 <option value="+1" data-flag="🇺🇸">🇺🇸 United States +1</option>
                 <option value="+44" data-flag="🇬🇧">🇬🇧 United Kingdom +44</option>
@@ -3419,17 +3462,25 @@ function openContactform() {
     
     
         aircraftMenu.style.display = 'none';
-        contactModalOverlay.style.display = 'flex';
+        contactModalOverlay.classList.add('show'); document.body.style.overflow='hidden';
 
-    if (closeContactModalBtn) {
+    
+  // close when clicking outside the card
+  contactModalOverlay.addEventListener('click', function(e){
+    if(e.target === contactModalOverlay){ 
+      contactModalOverlay.classList.remove('show'); 
+      document.body.style.overflow=''; 
+    }
+  }, { once: true });
+if (closeContactModalBtn) {
       closeContactModalBtn.addEventListener('click', function() {
-        contactModalOverlay.style.display = 'none';
+        contactModalOverlay.classList.remove('show'); document.body.style.overflow='';
       });
     }
     if (backToFlightBtn) {
       backToFlightBtn.addEventListener('click', function(e) {
       e.preventDefault();
-        contactModalOverlay.style.display = 'none';
+        contactModalOverlay.classList.remove('show'); document.body.style.overflow='';
         if (aircraftMenu) aircraftMenu.style.display = 'flex';
       });
     }
