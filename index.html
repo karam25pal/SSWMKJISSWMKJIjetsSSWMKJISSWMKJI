@@ -2541,8 +2541,8 @@
         // Global state
         let state = {
             tripType: 'one-way',
-            fromLocation: 'London',
-            toLocation: 'Abu Dhabi',
+            fromLocation: '',
+            toLocation: '',
             departureDate: new Date(),
             returnDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             departureTime: { hour: 12, minute: 0, period: 'PM' },
@@ -2619,8 +2619,8 @@
 
         function createNewLeg() {
             return {
-                fromLocation: 'London',
-                toLocation: 'Abu Dhabi',
+                fromLocation: '',
+                toLocation: '',
                 departureDate: new Date(),
                 departureTime: { hour: 12, minute: 0, period: 'PM' },
                 adults: 1,
